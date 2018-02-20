@@ -11,7 +11,7 @@ letraMaiuscula		[A-Z]+
 {numero}+([eE]("+"|"-")?{numero}+)?					{printf("REALLIT(%s)\n",yytext);}
 
 
-
+{CHARLIT}									{printf("CHRLIT('%c')\n",yytext[0]);}
 
 
 
