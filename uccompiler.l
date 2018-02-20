@@ -1,6 +1,7 @@
 numero				[0-9]
 ID					[A-Za-z_]+[A-Za-z_0-9]*
-CHARLIT				^[\n\"]
+CHARLIT				'([^\n\']){1}'
+CHARLIT2			'[\n\t\\\'\"(\[0-7]+[0-7]?[0-7]?]'
 letra				[A-Za-z]
 letraMinuscula      [a-z]
 letraMaiuscula		[A-Z]+
@@ -9,12 +10,6 @@ letraMaiuscula		[A-Z]+
 ["."]({numero})+([eE]("+"|"-")?{numero}+)?					{printf("REALLIT(%s)\n",yytext);}
 {numero}+											{printf("INTLIT(%s)\n",yytext);}
 {numero}+([eE]("+"|"-")?{numero}+)?					{printf("REALLIT(%s)\n",yytext);}
-
-
-
-
-
-
 char										{printf("CHAR\n");}
 else										{printf("ELSE\n");}
 while										{printf("WHILE\n");}
@@ -31,6 +26,7 @@ void										{printf("VOID\n");}
 =											{printf("ASSIGN\n");}
 "*"											{printf("MUL\n");}
 ,											{printf("COMMA\n");}
+%											{printf("MOD\n");}
 "/"											{printf("DIV\n");}
 ==											{printf("EQ\n");}
 >=											{printf("GE\n");}
@@ -40,7 +36,6 @@ void										{printf("VOID\n");}
 "("											{printf("LPAR\n");}
 "<"											{printf("LT\n");}
 "-"											{printf("MINUS\n");}
-%											{printf("MOD\n");}
 !=											{printf("NE\n");}
 !											{printf("NOT\n");}
 "||"										{printf("OR\n");}
@@ -48,34 +43,37 @@ void										{printf("VOID\n");}
 "}"											{printf("RBRACE\n");}
 ")"											{printf("RPAR\n");}
 ;											{printf("SEMI\n");}
-"["											{printf("RESERVED\n");}
-"]"											{printf("RESERVED\n");}
-"++"										{printf("RESERVED\n");}
-"--"										{printf("RESERVED\n");}
-auto										{printf("RESERVED\n");}
-break										{printf("RESERVED\n");}
-case										{printf("RESERVED\n");}
-const										{printf("RESERVED\n");}
-continue									{printf("RESERVED\n");}
-default										{printf("RESERVED\n");}
-do 											{printf("RESERVED\n");}
-long 										{printf("RESERVED\n");}
-register									{printf("RESERVED\n");}
-signed										{printf("RESERVED\n");}
-sizeof										{printf("RESERVED\n");}
-static										{printf("RESERVED\n");}
-struct										{printf("RESERVED\n");}
-switch										{printf("RESERVED\n");}
-typedef										{printf("RESERVED\n");}
-union										{printf("RESERVED\n");}
-unsigned 									{printf("RESERVED\n");}
-volatile									{printf("RESERVED\n");}
-enum										{printf("RESERVED\n");}
-extern 										{printf("RESERVED\n");}
-float 										{printf("RESERVED\n");}
-for											{printf("RESERVED\n");}
-goto										{printf("RESERVED\n");}
+"["											{printf("RESERVED(%s)\n",yytext);}
+"]"											{printf("RESERVED(%s)\n",yytext);}
+"++"										{printf("RESERVED(%s)\n",yytext);}
+"--"										{printf("RESERVED(%s)\n",yytext);}
+auto										{printf("RESERVED(%s)\n",yytext);}
+break										{printf("RESERVED(%s)\n",yytext);}
+case										{printf("RESERVED(%s)\n",yytext);}
+const										{printf("RESERVED(%s)\n",yytext);}
+continue									{printf("RESERVED(%s)\n",yytext);}
+default										{printf("RESERVED(%s)\n",yytext);}
+do 											{printf("RESERVED(%s)\n",yytext);}
+long 										{printf("RESERVED(%s)\n",yytext);}
+register									{printf("RESERVED(%s)\n",yytext);}
+signed										{printf("RESERVED(%s)\n",yytext);}
+sizeof										{printf("RESERVED(%s)\n",yytext);}
+static										{printf("RESERVED(%s)\n",yytext);}
+struct										{printf("RESERVED(%s)\n",yytext);}
+switch										{printf("RESERVED(%s)\n",yytext);}
+typedef										{printf("RESERVED(%s)\n",yytext);}
+union										{printf("RESERVED(%s)\n",yytext);}
+unsigned 									{printf("RESERVED(%s)\n",yytext);}
+volatile									{printf("RESERVED(%s)\n",yytext);}
+enum										{printf("RESERVED(%s)\n",yytext);}
+extern 										{printf("RESERVED(%s)\n",yytext);}
+float 										{printf("RESERVED(%s)\n",yytext);}
+for											{printf("RESERVED(%s)\n",yytext);}
+goto										{printf("RESERVED(%s)\n",yytext);}
+{CHARLIT2}									{printf("CHRLIT('%c')\n",yytext[1]);}
+{CHARLIT}									{printf("CHRLIT('%c')\n",yytext[1]);}
 {ID}										{printf("ID(%s)\n",yytext);}
+[\n\r\t\ ] 											{;}
 .											{;}
 
 %%
