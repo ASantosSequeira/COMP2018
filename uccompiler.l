@@ -22,11 +22,11 @@ void										{printf("VOID\n");}
 &											{printf("BITWISEAND\n");}
 "|"											{printf("BITWISEOR\n");}
 "^"											{printf("BITWISEXOR\n");}
-&&											{printf("AND\n");}
-=											{printf("ASSIGN\n");}
+"&&"											{printf("AND\n");}
+"="											{printf("ASSIGN\n");}
 "*"											{printf("MUL\n");}
-,											{printf("COMMA\n");}
-%											{printf("MOD\n");}
+","											{printf("COMMA\n");}
+"%"											{printf("MOD\n");}
 "/"											{printf("DIV\n");}
 ==											{printf("EQ\n");}
 >=											{printf("GE\n");}
